@@ -82,6 +82,12 @@ class PythonNumpyConan(ConanFile):
 
     def package(self):
         os.makedirs(os.path.join(self.package_folder, "include"))
+        copy(self, 
+            "*.h", 
+            os.path.join(self.source_folder, "src", "numpy", "_core", "include", "numpy"),
+            os.path.join(self.package_folder, "include", "numpy"),
+            keep_path=True
+            )
 
     def package_info(self):
         self.runenv_info.append_path("PYTHONPATH", os.path.join(self.package_folder, "lib", f"python{self.pyver}", "site-packages"))
