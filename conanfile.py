@@ -81,10 +81,9 @@ class PythonNumpyConan(ConanFile):
             self.run('{0} -m pip install --prefix= --root="{1}" .'.format(self.active_python_exec, self.package_folder))
 
     def package(self):
-        os.makedirs(os.path.join(self.package_folder, "include"))
         copy(self, 
             "*.h", 
-            os.path.join(self.source_folder, "src", "numpy", "_core", "include", "numpy"),
+            os.path.join(self.source_folder, "numpy", "_core", "include", "numpy"),
             os.path.join(self.package_folder, "include", "numpy"),
             keep_path=True
             )
