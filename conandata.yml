@@ -1,0 +1,4 @@
+sources:
+  "2.2.0":
+    url: "https://github.com/numpy/numpy/releases/download/v2.2.0/numpy-2.2.0.tar.gz"
+    sha256: "140dd80ff8981a583a60980be1a655068f8adebf7a45a06a6858c873fcdcd4a0"
