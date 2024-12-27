@@ -52,18 +52,32 @@ class PythonNumpyConan(ConanFile):
             self.run('{0} -m pip install --prefix= --root="{1}" .'.format(self._python_exec, self.package_folder))
 
     def package(self):
-        copy(self, 
-            "*.h", 
-            os.path.join(self.source_folder, "numpy", "_core", "include", "numpy"),
-            os.path.join(self.package_folder, "include", "numpy"),
-            keep_path=True
-            )
-        for name in ["_numpyconfig.h", "__multiarray_api.c", "__multiarray_api.h", "__ufunc_api.c", "__ufunc_api.h"]:
-            copy(self,
-                name,
-                os.path.join(self.package_folder, "lib", f"python{self._python_version}", "site-packages", "numpy", "_core", "include", "numpy"),
+        if self.version.split('.')[0] == '2':
+            copy(self, 
+                "*.h", 
+                os.path.join(self.source_folder, "numpy", "_core", "include", "numpy"),
                 os.path.join(self.package_folder, "include", "numpy"),
+                keep_path=True
                 )
+            for name in ["_numpyconfig.h", "__multiarray_api.c", "__multiarray_api.h", "__ufunc_api.c", "__ufunc_api.h"]:
+                copy(self,
+                    name,
+                    os.path.join(self.package_folder, "lib", f"python{self._python_version}", "site-packages", "numpy", "_core", "include", "numpy"),
+                    os.path.join(self.package_folder, "include", "numpy"),
+                    )
+        else:
+            copy(self, 
+                "*.h", 
+                os.path.join(self.source_folder, "numpy", "core", "include", "numpy"),
+                os.path.join(self.package_folder, "include", "numpy"),
+                keep_path=True
+                )
+            for name in ["_numpyconfig.h", "__multiarray_api.c", "__multiarray_api.h", "__ufunc_api.c", "__ufunc_api.h"]:
+                copy(self,
+                    name,
+                    os.path.join(self.package_folder, "lib", f"python{self._python_version}", "site-packages", "numpy", "core", "include", "numpy"),
+                    os.path.join(self.package_folder, "include", "numpy"),
+                    )
 
     def package_info(self):
         self.runenv_info.append_path("PYTHONPATH", os.path.join(self.package_folder, "lib", f"python{self._python_version}", "site-packages"))
