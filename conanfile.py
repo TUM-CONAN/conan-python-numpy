@@ -14,7 +14,7 @@ class PythonNumpyConan(ConanFile):
     package_type = "application"
 
     name = "python-numpy"
-    version = "2.2.0"
+    version = "1.26.4"
     license = "MIT"
     description = "Numpy extension for Python Interpreter"
 
